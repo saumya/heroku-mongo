@@ -62,14 +62,18 @@ app.get('/mongo', function(request, response){
 		if(err){
 			response.send(err);
 		}else{
-			response.send('Connected to DB : mongodb : driver');
+			//response.send('Connected to DB : mongodb : driver');
 			//now work with DB Server
+			
 			var collection = db.collection('test');//get the DB selected
 			//put some data
 			var doc1 = {'hello':'doc1'};
   			var doc2 = {'hello':'doc2'};
   			collection.insert(doc1);	
-  			collection.insert(doc2);	
+  			collection.insert(doc2);
+  			
+  			//db.unicorns.insert({name: ’Aurora’, gender: ’f’, weight: 450});
+  			response.send('Data is put on the DB !!');
 		}
 	});
 	/*
