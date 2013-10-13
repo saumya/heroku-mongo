@@ -72,7 +72,7 @@ app.get('/mongo', function(request, response){
   			collection.insert(doc1);	
   			collection.insert(doc2);
   			*/
-  			db.unicorns.insert({name: ’Aurora’, gender: ’f’, weight: 450});
+  			db.unicorns.insert({name: 'Aurora', gender: 'f', weight: 450});
   			response.send('Data is put on the DB !!');
 		}
 	});
