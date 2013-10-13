@@ -74,7 +74,14 @@ app.get('/mongo', function(request, response){
   				if(err){
   					response.send(err);
   				}else{
-  					response.send('Data is put on the DB !!');
+  					//response.send('Data is put on the DB !!');
+  					var stream = collection.find().toArray(function(err, items) {
+  						if(err){
+  							response.send(err);
+  						}else{
+  							response.send(items);
+  						}
+  					});
   				}
   			});
 		}
