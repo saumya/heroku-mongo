@@ -63,6 +63,13 @@ app.get('/mongo', function(request, response){
 			response.send(err);
 		}else{
 			response.send('Connected to DB : mongodb : driver');
+			//now work with DB Server
+			var collection = db.collection('test');//get the DB selected
+			//put some data
+			var doc1 = {'hello':'doc1'};
+  			var doc2 = {'hello':'doc2'};
+  			collection.insert(doc1);	
+  			collection.insert(doc2);	
 		}
 	});
 	/*
