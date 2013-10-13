@@ -67,10 +67,10 @@ app.get('/mongo', function(request, response){
 			
 			var collection = db.collection('test');//get the DB selected
 			//put some data
-			var doc1 = {'hello':'doc1'};
-  			var doc2 = {'hello':'doc2'};
+			var doc1 = {name:'saumya',noSQL:'mongoDB',level:'rockstar'};
+  			//var doc2 = {'hello':'doc2'};
   			//collection.insert(doc1);	
-  			collection.insert(doc1,doc2,function(err,result){
+  			collection.insert(doc1,function(err,result){
   				if(err){
   					response.send(err);
   				}else{
