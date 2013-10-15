@@ -49,7 +49,25 @@ app.get('/add', function(request, response){
 
 
 app.get('/about', function(request, response){
-  response.send('About');
+	//response.send('About');
+	var mongoUri = 'mongodb://saumyaDB:saumyaDBPW@ds049598.mongolab.com:49598/saumya-ray';
+	mongo.Db.connect(mongoUri, function (err, db) {
+		//response.send('Connected to DB : mongodb : driver');
+		if(err){
+			response.send(err);
+		}else{
+			var collection = db.collection('test');//get the DB selected
+			var stream = collection.find().toArray(function(err, items) {
+							if(err){
+								response.send(err);
+							}else{
+								response.send(items);
+							}
+						});
+
+		}
+	});
+
 });
 
 
