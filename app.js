@@ -175,6 +175,7 @@ app.post('/Users', function(request, response){
 	var faceboookID = request.body.Users['user_id'];
 	var facebookAccessToken = request.body.Users['access_token'];
 	var facebookUserName = request.body.Users['username'];
+	//UserToDevice
 
 	//response.send('<h1>Adding the data</h1>');
 	var mongoUri = 'mongodb://saumyaDB:saumyaDBPW@ds049598.mongolab.com:49598/saumya-ray';
@@ -208,6 +209,43 @@ app.post('/Users', function(request, response){
 	});
 	//end adding
 });
+app.post('/UserToDevice', function(request, response){
+	var faceboookID = request.body.UserToDevice['user_id'];
+	var deviceToken = request.body.UserToDevice['device_token'];
+
+	//response.send('<h1>Adding the data</h1>');
+	var mongoUri = 'mongodb://saumyaDB:saumyaDBPW@ds049598.mongolab.com:49598/saumya-ray';
+	mongo.Db.connect(mongoUri, function (err, db) {
+		//response.send('Connected to DB : mongodb : driver');
+		if(err){
+			response.send(err);
+		}else{
+			//response.send('Connected to DB : mongodb : driver');
+			//now work with DB Server
+			
+			var collection = db.collection('test');//get the DB selected
+			//make data
+			var doc = {iUsers:'UserToDevice',fbID:faceboookID,deviceToken:deviceToken};
+			//put data in DB
+			collection.insert(doc,function(err,result){
+				if(err){
+					response.send(err);
+				}else{
+					//response.send('Data is put on the DB !!');
+					var stream = collection.find().toArray(function(err, items) {
+						if(err){
+							response.send(err);
+						}else{
+							response.send(items);
+						}
+					});
+				}
+			});
+		}
+	});
+	//end adding
+});
+//End iOS
 
 
 
