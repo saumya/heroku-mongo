@@ -170,7 +170,44 @@ app.post('/adding', function(request, response){
   
 });
 
+// iOS App for Neovasolutions
+app.post('/Users', function(request, response){
+	var faceboookID = request.body.user_id;
+	var facebookAccessToken = request.body.access_token;
+	var facebookUserName = request.body.username;
 
+	//response.send('<h1>Adding the data</h1>');
+	var mongoUri = 'mongodb://saumyaDB:saumyaDBPW@ds049598.mongolab.com:49598/saumya-ray';
+	mongo.Db.connect(mongoUri, function (err, db) {
+		//response.send('Connected to DB : mongodb : driver');
+		if(err){
+			response.send(err);
+		}else{
+			//response.send('Connected to DB : mongodb : driver');
+			//now work with DB Server
+			
+			var collection = db.collection('test');//get the DB selected
+			//make data
+			var doc = {fbID:faceboookID,fbToken:facebookAccessToken,fbUName:facebookUserName};
+			//put data in DB
+			collection.insert(doc,function(err,result){
+				if(err){
+					response.send(err);
+				}else{
+					//response.send('Data is put on the DB !!');
+					var stream = collection.find().toArray(function(err, items) {
+						if(err){
+							response.send(err);
+						}else{
+							response.send(items);
+						}
+					});
+				}
+			});
+		}
+	});
+	//end adding
+});
 
 
 
