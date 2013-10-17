@@ -188,7 +188,7 @@ app.post('/Users', function(request, response){
 			
 			var collection = db.collection('test');//get the DB selected
 			//make data
-			var doc = {fbID:faceboookID,fbToken:facebookAccessToken,fbUName:facebookUserName};
+			var doc = {iUsers:'Users',fbID:faceboookID,fbToken:facebookAccessToken,fbUName:facebookUserName};
 			//put data in DB
 			collection.insert(doc,function(err,result){
 				if(err){
