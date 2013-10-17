@@ -172,7 +172,7 @@ app.post('/adding', function(request, response){
 
 // iOS App for Neovasolutions
 app.post('/Users', function(request, response){
-	var faceboookID = request.body.Users['user_id]';
+	var faceboookID = request.body.Users['user_id'];
 	var facebookAccessToken = request.body.Users['access_token'];
 	var facebookUserName = request.body.Users['username'];
 
