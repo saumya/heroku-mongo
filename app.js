@@ -245,6 +245,46 @@ app.post('/UserToDevice', function(request, response){
 	});
 	//end adding
 });
+app.post('/Message', function(request, response){
+	var faceboookID = request.body.Message['user_id'];
+	var message = request.body.Message['message'];
+	var priority = request.body.Message['priority'];
+
+	
+	//response.send('<h1>Adding the data</h1>');
+	var mongoUri = 'mongodb://saumyaDB:saumyaDBPW@ds049598.mongolab.com:49598/saumya-ray';
+	mongo.Db.connect(mongoUri, function (err, db) {
+		//response.send('Connected to DB : mongodb : driver');
+		if(err){
+			response.send(err);
+		}else{
+			//response.send('Connected to DB : mongodb : driver');
+			//now work with DB Server
+			
+			var collection = db.collection('test');//get the DB selected
+			//make data
+			var doc = {iType:'Message',fbID:faceboookID,message:message,priority:priority};
+			//put data in DB
+			collection.insert(doc,function(err,result){
+				if(err){
+					response.send(err);
+				}else{
+					//response.send('Data is put on the DB !!');
+					var stream = collection.find().toArray(function(err, items) {
+						if(err){
+							response.send(err);
+						}else{
+							response.send(items);
+						}
+					});
+				}
+			});
+		}
+	});
+	//end adding
+	
+
+});
 //End iOS
 
 
